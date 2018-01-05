@@ -48,7 +48,16 @@ export function criarDenuncia(acao) {
         estado: acao.payload.vitima.estado,
       },
     },
-    testemunhas: { },
+    testemunha: {
+      nome: acao.payload.testemunha.nome,
+      raca: acao.payload.testemunha.raca,
+      dataNascimento: acao.payload.testemunha.dataNascimento,
+      genero: acao.payload.testemunha.genero,
+      caracteristicas: acao.payload.testemunha.caracteristicas,
+      informacoesContato: {
+        telefone: acao.payload.testemunha.telefone
+      }
+    },
     autores: { },
   });
 
@@ -61,7 +70,7 @@ export function* handleCriarDenunciaRequisicao() {
     const idDenuncia = yield call(criarDenuncia, acao);
 
     yield put(criarDenunciaSucesso(idDenuncia));
-    yield put(acao.payload.onSuccess);
+    yield call(acao.payload.onSuccess);
   }
 }
 
