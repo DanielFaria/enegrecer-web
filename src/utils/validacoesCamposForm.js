@@ -8,6 +8,12 @@ function temCaractereEspecial(valor) {
   return format.test(valor);
 }
 
+/*
+function temAcentuacao(valor) {
+  const format = /[\wÀ-ú]/;
+  return format.test(valor)
+}
+*/
 function temNumero(valor) {
   const format = /\d/;
   return format.test(valor);
@@ -18,12 +24,12 @@ function nomeDaVitimaInvalido(valor) {
 }
 
 function tamanhoTelefoneValido(valor) {
-  return valor.length === 10 || valor.length === 11;
+  return valor.length === 14 || valor.length === 15;
 }
 
-function ehNumeroValido(valor) {
-  const reg = new RegExp('^[0-9]+$');
-  return (reg.test(valor));
+function formatoDeTelefoneValido(valor) {
+  const reg = new RegExp(/^\([1-9]{2}\) [0-9][0-9]{3,4}-[0-9]{3,4}$/);
+  return reg.test(valor);
 }
 
 function ehEmailValido(valor) {
@@ -35,7 +41,7 @@ function validarEmail(valor) {
 }
 
 function validarTelefone(valor) {
-  return (!isNaN(valor) && ehNumeroValido(valor) && tamanhoTelefoneValido(valor)) || (valor === '');
+  return (formatoDeTelefoneValido(valor) && tamanhoTelefoneValido(valor)) || (valor === '');
 }
 
 function validarDataDeNascimento(valor) {
@@ -63,10 +69,15 @@ function focoNoCampo(idCampo) {
 }
 
 export function alertaDeCamposObrigatorios() {
-  alert('Você não inseriu informações sobre a vítima. ' +
-  'Precisamos que você complemente inserindo ao menos uma descrição informal sobre a pessoa.');
-  focoNoCampo('caracteristicasVitima');
+  alert('Atenção! Para completar o envio da denúncia, precisamos do preenchimento do seguinte campo: "Por favor, descreva aqui as características da vítima:"')
+  focoNoCampo('caracteristicasVitima-vitima');
   return false
+}
+
+export function verificarCamposObrigatoriosVazios(campos, obrigatorios = []) {
+  return campos === null ||
+    (obrigatorios.length > 0 &&
+      obrigatorios.every(attr => campoVazio(campos[attr])))
 }
 
 export function verificarCamposVaziosdaVitima(campos) {
@@ -97,8 +108,8 @@ export function validaTamanhoDeCampoString(string, tamanho) {
   return false;
 }
 
-export function validaCamposForm(campos, camposObgs = ['caracteristicasVitima']) {
-  if (campos === null || camposObgs.every(attr => campoVazio(campos[attr]))) {
+export function validaCamposForm(campos, obrigatorios = []) {
+  if (verificarCamposObrigatoriosVazios(campos, obrigatorios)) {
     return alertaDeCamposObrigatorios();
   } else if (verificarCamposVaziosdaVitima(campos)) {
     return alertaDeCamposNaoPreenchidos();

@@ -29,7 +29,7 @@ describe('validacoesCamposForm', () => {
         dataNascimento: '01/01/2000',
         endereco: 'endereco',
         estado: 'estado',
-        telefone: '12345678901',
+        telefone: '(81) 12345-4321',
         email: 'email@email.com',
         naturalidade: 'naturalidade',
         caracteristicasVitima: 'caracteristicasVitima',
@@ -50,7 +50,7 @@ describe('validacoesCamposForm', () => {
 
     it('O formulário deve ser inválido se todos os campos opcionais' +
       ' e o campo obrigatório estejam vazios', () => {
-      const retorno = validacoesCamposForm.validaCamposForm(camposVaziosVitima);
+      const retorno = validacoesCamposForm.validaCamposForm(camposVaziosVitima, ['caracteristicasVitima']);
       assert.isFalse(retorno);
     })
 
@@ -59,7 +59,7 @@ describe('validacoesCamposForm', () => {
         ...camposPreenchidosVitima,
         caracteristicasVitima: '',
       }
-      const retorno = validacoesCamposForm.validaCamposForm(campos);
+      const retorno = validacoesCamposForm.validaCamposForm(campos, ['caracteristicasVitima']);
       assert.isFalse(retorno);
     })
 
@@ -121,20 +121,20 @@ describe('validacoesCamposForm', () => {
       assert.isFalse(retorno);
     })
 
-    it('O formulário deve ser inválido se o campo telefone for maior que 11', () => {
+    it('O formulário deve ser inválido se o campo telefone for maior que 15', () => {
       const campos = {
         ...camposVaziosVitima,
-        telefone: '123456789012',
+        telefone: '(81) 99999-99999',
         caracteristicasVitima: 'caracteristicasVitima',
       }
       const retorno = validacoesCamposForm.validaCamposForm(campos);
       assert.isFalse(retorno);
     })
 
-    it('O formulário deve ser inválido se o campo telefone for menor que 10', () => {
+    it('O formulário deve ser inválido se o campo telefone for menor que 14', () => {
       const campos = {
         ...camposVaziosVitima,
-        telefone: '123456789',
+        telefone: '(81) 99999-99',
         caracteristicasVitima: 'caracteristicasVitima',
       }
       const retorno = validacoesCamposForm.validaCamposForm(campos);
@@ -151,32 +151,39 @@ describe('validacoesCamposForm', () => {
       assert.isFalse(retorno);
     })
 
-
-    it('O formulário deve ser inválido se o campo nome possuir mais de 40 caracteres', () => {
+    it('O formulário deve ser inválido caso o usuário insira números no campo nome', () => {
       const campos = {
         ...camposVaziosVitima,
-        nome: '12345678901234567890123456789012345678901',
+        nome: 'Izael123',
         caracteristicasVitima: 'caracteristicasVitima',
       }
-      assert.isFalse(validacoesCamposForm.validaTamanhoDeCampoString(campos.nome, 40));
-    })
-
-    it('O formulário deve ser inválido caso o usuário insira números no campo nome', () => {
-      const nomeEsperado = 'Izael123'
-      const retorno = validacoesCamposForm.validaCamposForm(nomeEsperado);
+      const retorno = validacoesCamposForm.validaCamposForm(campos, ['caracteristicasVitima']);
       assert.isFalse(retorno);
     })
 
     it('O formulário deve ser inválido caso o usuário insira caracteres especiais no campo nome', () => {
-      const nomeEsperado = 'Izael'
-      const retorno = validacoesCamposForm.validaCamposForm(nomeEsperado);
+      const campos = {
+        ...camposVaziosVitima,
+        nome: 'Izael!_',
+        caracteristicasVitima: 'caracteristicasVitima',
+      }
+      const retorno = validacoesCamposForm.validaCamposForm(campos, ['caracteristicasVitima']);
       assert.isFalse(retorno);
     })
 
     it('O formulário deve ser inválido caso o usuário insira acentos no campo nome', () => {
-      const nomeEsperado = 'Izáel'
-      const retorno = validacoesCamposForm.validaCamposForm(nomeEsperado);
+      const campos = {
+        ...camposVaziosVitima,
+        nome: 'Mae^',
+        caracteristicasVitima: 'caracteristicasVitima',
+      }
+      const retorno = validacoesCamposForm.validaCamposForm(campos, ['caracteristicasVitima']);
       assert.isFalse(retorno);
+    })
+
+    it('O formulário deve ser inválido se o campo nome possuir mais de 40 caracteres', () => {
+      const nomeEsperado = '12345678901234567890123456789012345678901'
+      assert.isFalse(validacoesCamposForm.validaTamanhoDeCampoString(nomeEsperado, 40));
     })
 
     it('O formulário deve ser inválido se o campo genero possuir mais de 15 caracteres', () => {
