@@ -5,14 +5,14 @@ cache:
   - "node_modules"
 node_js: '8'
 
-
 stages:
   - lint
   - name: test
     if: type = pull_request 
   - name: test-with-coverage 
     if: (NOT (type = pull_request ))
-  - deploy   
+  - deploy  
+    
 
 jobs:
   include:
