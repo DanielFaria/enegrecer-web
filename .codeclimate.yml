@@ -1,10 +1,8 @@
 engines:
   eslint:
     enabled: true
-    channel: "stable"
-    checks:
-      import/extensions:
-        enabled: false
+    config:
+      config: .eslintrc.json
 
   csslint:
     enabled: true
