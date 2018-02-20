@@ -1,7 +1,9 @@
 engines:
   eslint:
-    enabled: false
-    
+    enabled: true
+    config:
+      config: .eslintrc.json
+
   csslint:
     enabled: true
   duplication:
@@ -10,5 +12,6 @@ engines:
       languages:
       - javascript:
 exclude_patterns:
-- "**/testeFuncional/"
-- "src/**/*.test.js"
+- "/src/**/*.test.js"
+- "testeFuncional/"
+
