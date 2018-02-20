@@ -14,3 +14,4 @@ engines:
 exclude_patterns:
 - "/src/**/*.test.js"
 - "testeFuncional/"
+

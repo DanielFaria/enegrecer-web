@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { criarDenunciaRequisicao } from '../../actions';
+import { criarDenunciaRequisicao } from '../../actions/criarDenunciaActions';
 import NovaDenunciaForm from '../../components/denuncias/NovaDenunciaForm';
-import { validaCamposForm, verificarCamposObrigatoriosVazios } from '../../utils/validacoesCamposForm';
+import { validaDenuncia } from './validaDenuncia';
 
 export class NovaDenunciaContainer extends Component {
   constructor(props) {
@@ -15,20 +15,22 @@ export class NovaDenunciaContainer extends Component {
     this.state = {
       vitima: null,
       denunciante: null,
-      testemunha: null,
-      userId: this.props.currentUserUID,
+      testemunha: null
     };
   }
 
   onPressSaveButton() {
-    if (validaCamposForm(this.state.vitima, ['caracteristicasVitima']) &&
-      verificarCamposObrigatoriosVazios(this.state.testemunha)) {
+    const mensagemError = validaDenuncia(this.state.vitima);
+    if (mensagemError === undefined) {
       this.props.criarDenunciaRequisicao({
         ...this.state,
         onSuccess: push('/'),
       });
+    } else {
+      alert(mensagemError);
     }
   }
+
 
   adicionarDenunciaNoForm(denuncia) {
     this.setState({
@@ -47,7 +49,6 @@ export class NovaDenunciaContainer extends Component {
 }
 
 NovaDenunciaContainer.propTypes = {
-  currentUserUID: PropTypes.string.isRequired,
   criarDenunciaRequisicao: PropTypes.func.isRequired,
 };
 
