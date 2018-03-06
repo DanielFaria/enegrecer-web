@@ -38,7 +38,6 @@ export default class NovaVitimaForm extends Component {
       () => this.props.handleChange({ vitima: this.state })
     );
   }
-
   renderTextField(id, label, maxLen = '', placeholder = '', type = '') {
     return (
       <TextField
