@@ -1,12 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { cortarPalavra } from '../../../helpers';
-import { RacaFormGroup, TelefoneFormGroup, CampoTexto } from '../../FormGroups'
+import { cortarPalavra } from '../../../utils/helpers';
+import Telefone from '../../comum/telefone';
+import * as ConstantesCSS from '../ConstantesCss';
+import * as Tela from '../../../utils/materializeCSS';
+import Genero from '../../comum/genero';
+import Nome from '../../comum/nome';
+import ComboboxRaca from '../../comum/comboboxRaca';
+import Caracteristica from '../../comum/caracteristica';
+import Data from '../../comum/data';
 
 export default class NovaTestemunhaForm extends React.Component {
   constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       nome: '',
@@ -15,11 +22,15 @@ export default class NovaTestemunhaForm extends React.Component {
       dataNascimento: '',
       telefone: '',
       caracteristicas: '',
-    }
+    };
   }
 
   componentDidMount() {
-    this.props.handleChange({ testemunha: this.state })
+    this.props.handleChange({ testemunha: this.state });
+    const racaTestemunha = Tela.getElementoPorId('raca-testemenunha');
+    racaTestemunha.on('change', (e) => {
+      this.handleChange(e.target.value, 'raca');
+    });
   }
 
   handleChange(value, property) {
@@ -31,57 +42,59 @@ export default class NovaTestemunhaForm extends React.Component {
     return (
       <div>
         <h3>Informacões da Testemunha</h3>
-        <CampoTexto
-          id={'nome-testemunha'}
-          label={'Nome (máximo de 40 caracteres)'}
-          maxLen={40}
-          onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 40), 'nome') }}
-          type={'text'}
-        />
+        <br />
 
-        <CampoTexto
-          id={'genero-testemunha'}
-          label={'Gênero (máximo de 15 caracteres)'}
-          maxLen={15}
-          onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 15), 'genero') }}
-          placeholder={'Ex.: Feminino, Masculino, Não Binário...'}
-          type={'text'}
-        />
+        <div className="row">
+          <Nome id={'nome-testemunha'} onChange={e => this.handleChange(cortarPalavra(e.target.value, 40), 'nome')} />
+        </div>
 
-        <RacaFormGroup
-          id={'raca'}
-          value={this.state.raca}
-          handleChange={this.handleChange}
-        />
+        <div className="row">
+          <Genero
+            id={'genero-testemunha'}
+            divClasse={`${ConstantesCSS.CLASSES_DIV_INPUT} col s6`}
+            onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 15), 'genero'); }}
+          />
 
-        <CampoTexto
-          id={'dataNascimento-testemunha'}
-          label={'Data de Nascimento'}
-          maxLen={0}
-          onChange={(e) => { this.handleChange(e.target.value, 'dataNascimento') }}
-          type={'date'}
-        />
+          <ComboboxRaca
+            id={'raca-testemenunha'}
+            classes={`${ConstantesCSS.CLASSES_DIV_INPUT} col s6`}
+            somenteRacasVitima={false}
+            onChange={this.handleChange}
+          />
+        </div>
 
-        <TelefoneFormGroup
-          id={'telefone'}
-          value={this.state.telefone}
-          handleChange={this.handleChange}
-        />
+        <div className="row">
+          <Data
+            id={'dataNascimento-testemunha'}
+            label={'Data de Nascimento'}
+            onChange={(e) => { this.handleChange(e.target.value, 'dataNascimento'); }}
+            divClasse={`${ConstantesCSS.CLASSES_DIV_INPUT} col s6`}
+          />
 
-        <CampoTexto
-          id={'caracteristicas-testemunha'}
-          label={'* Por favor, descreva aqui as características da testemunha (máximo de 255 caracteres)'}
-          maxLen={255}
-          onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 255), 'caracteristicas') }}
-          type={'text'}
-        />
+          <Telefone
+            id={'telefone'}
+            value={this.state.telefone}
+            handleChange={this.handleChange}
+            label={'Telefone'}
+          />
+        </div>
 
+        <div className="row">
+          <Caracteristica
+            id={'caracteristicas-testemunha'}
+            label={'* Por favor, descreva aqui as características da testemunha (máximo de 255 caracteres)'}
+            onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 255), 'caracteristicas'); }}
+            type={'text'}
+            inputClasse={ConstantesCSS.CLASSES_TEXTAREA}
+            divClasse={`${ConstantesCSS.CLASSES_DIV_INPUT} col s12`}
+          />
+        </div>
       </div>
     );
   }
 }
 
-NovaTestemunhaForm.defaultProps = { handleChange: () => {} }
+NovaTestemunhaForm.defaultProps = { handleChange: () => {} };
 NovaTestemunhaForm.propTypes = {
   handleChange: PropTypes.func,
 };

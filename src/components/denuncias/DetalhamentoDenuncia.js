@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { cortarPalavra } from '../../helpers';
-import { EstadoFormGroup, CampoTexto, RadioGrupoBotoes } from '../FormGroups';
+import { cortarPalavra } from '../../utils/helpers';
+import ComboEstado from './../comum/comboboxEstado';
+import CampoTexto from './../comum/campoTexto';
+import BotoesRadio from './../comum/botoesRadio';
+import Data from './../comum/data';
+import * as ConstantesCSS from './ConstantesCss';
+import * as Tela from '../../utils/materializeCSS';
 
 export default class DetalhamentoDenuncia extends Component {
   constructor(props) {
@@ -16,6 +21,12 @@ export default class DetalhamentoDenuncia extends Component {
       estado: ''
     };
   }
+  componentDidMount() {
+    const comboEstado = Tela.getElementoPorId('estado');
+    comboEstado.on('change', (e) => {
+      this.handleChange(e.target.value, 'estado');
+    });
+  }
 
   handleChange(value, property) {
     this.setState(
@@ -27,55 +38,67 @@ export default class DetalhamentoDenuncia extends Component {
   render() {
     return (
       <div>
-        <br />
         <h1>Nova Denúncia</h1>
-        <br />
-        <CampoTexto
-          id={'detalhamento'}
-          label={'* Detalhamento'}
-          maxLen={255}
-          type={'textarea'}
-          onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 255), 'detalhamento') }}
-        />
-        <CampoTexto
-          id={'dataOcorrencia'}
-          label={'Data do ocorrido'}
-          maxLen={0}
-          type={'date'}
-          onChange={(e) => { this.handleChange(e.target.value, 'dataOcorrencia') }}
-        />
-        <CampoTexto
-          id={'horaOcorrencia'}
-          label={'Hora do ocorrido'}
-          maxLen={0}
-          type={'time'}
-          onChange={(e) => { this.handleChange(e.target.value, 'horaOcorrencia') }}
-        />
-        <br />
 
-        <RadioGrupoBotoes
-          id={'idCategoria'}
-          onChange={e => this.handleChange(e.target.checked, 'idCategoria')}
-          botoes={[{ id: 'radioInjuria', valor: 'injuria', label: 'Injúria' },
-            { id: 'radioRacismo', valor: 'racismo', label: 'Racismo' }]}
-        />
+        <div className="row">
+          <CampoTexto
+            id={'detalhamento'}
+            label={'* Detalhamento'}
+            maxLen={255}
+            type={'text'}
+            inputClasse={ConstantesCSS.CLASSES_TEXTAREA}
+            divClasse={`${ConstantesCSS.CLASSES_DIV_INPUT} col s12`}
+            onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 255), 'detalhamento'); }}
+          />
+        </div>
+
+        <div className="row">
+
+          <BotoesRadio
+            classes={'col s3'}
+            id={'idCategoria'}
+            onChange={e => this.handleChange(e.target.checked, 'idCategoria')}
+            botoes={[{ id: 'radioInjuria', valor: 'injuria', label: 'Injúria' },
+              { id: 'radioRacismo', valor: 'racismo', label: 'Racismo' }]}
+          />
+
+          <Data
+            id={'dataOcorrencia'}
+            label={'Data do ocorrido'}
+            divClasse={`${ConstantesCSS.CLASSES_DIV_INPUT} col s4`}
+            maxLen={0}
+            type={'date'}
+            onChange={(e) => { this.handleChange(e.target.value, 'dataOcorrencia'); }}
+          />
+
+          <CampoTexto
+            id={'horaOcorrencia'}
+            label={'Hora do ocorrido'}
+            maxLen={0}
+            type={'time'}
+            inputClasse={ConstantesCSS.CLASSES_INPUT}
+            divClasse={`${ConstantesCSS.CLASSES_DIV_INPUT} col s5`}
+            onChange={(e) => { this.handleChange(e.target.value, 'horaOcorrencia'); }}
+          />
+        </div>
+
         <h4>Local do crime</h4>
-
-        <CampoTexto
-          id={'endereco'}
-          label={'Endereço'}
-          maxLen={255}
-          type={'textarea'}
-          onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 255), 'endereco') }}
-        />
-
-        <EstadoFormGroup
-          id="estado"
-          value={this.state.estado}
-          handleChange={this.handleChange}
-        />
+        <div className="row">
+          <CampoTexto
+            id={'endereco'}
+            label={'Endereço'}
+            maxLen={255}
+            type={'text'}
+            inputClasse={ConstantesCSS.CLASSES_TEXTAREA}
+            divClasse={`${ConstantesCSS.CLASSES_DIV_INPUT} col s12`}
+            onChange={(e) => { this.handleChange(cortarPalavra(e.target.value, 255), 'endereco'); }}
+          />
+        </div>
+        <div className="row">
+          <ComboEstado id={'estado'} onChange={this.handleChange} classes="col s12" />
+        </div>
       </div>
-    )
+    );
   }
 }
 
@@ -84,4 +107,3 @@ DetalhamentoDenuncia.defaultProps = { handleChange: () => { } };
 DetalhamentoDenuncia.propTypes = {
   handleChange: PropTypes.func
 };
-
