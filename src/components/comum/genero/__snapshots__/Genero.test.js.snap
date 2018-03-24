@@ -7,34 +7,54 @@ exports[`Genero deve possuir estrutura definida  1`] = `
   id="13"
   onChange={[Function]}
 >
-  <campoTexto
+  <combobox
     divClasse=""
     id="13"
-    inputClasse="validate"
-    label="Gênero (máximo de 15 caracteres)"
-    maxLen={15}
+    itens={
+      Array [
+        "Feminino",
+        "Masculino",
+      ]
+    }
+    label="Gênero"
     onChange={[Function]}
-    placeholder="Ex.: Feminino, Masculino, Não Binário..."
-    type="text"
+    valorPadrao="Selecione seu gênero"
   >
     <div
       className=""
     >
-      <input
-        className="validate"
+      <select
         id="13"
-        maxLength={15}
         onChange={[Function]}
-        placeholder="Ex.: Feminino, Masculino, Não Binário..."
-        type="text"
-      />
+      >
+        <option
+          value=""
+        >
+          Selecione seu gênero
+        </option>
+        <option
+          key="Feminino"
+          value="Feminino"
+        >
+           
+          Feminino
+           
+        </option>
+        <option
+          key="Masculino"
+          value="Masculino"
+        >
+           
+          Masculino
+           
+        </option>
+      </select>
       <label
-        className="active"
         htmlFor="13"
       >
-        Gênero (máximo de 15 caracteres)
+        Gênero
       </label>
     </div>
-  </campoTexto>
+  </combobox>
 </genero>
 `;

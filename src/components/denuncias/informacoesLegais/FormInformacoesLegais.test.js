@@ -5,7 +5,6 @@ import InformacoesLegais from './FormInformacoesLegais';
 
 describe('DenuncianteForm', () => {
   it('deve seguir a estrutura definida ', () => {
-    const handleChange = jest.fn();
     const informacoesLegais = mount(<InformacoesLegais />);
     const informacoesLegaisJson = toJson(informacoesLegais);
     expect(informacoesLegaisJson).toMatchSnapshot();

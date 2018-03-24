@@ -5,6 +5,7 @@ import NovaTestemunhaForm from './testemunha/NovaTestemunhaForm';
 import DetalhamentoDenuncia from './DetalhamentoDenuncia';
 import Denunciante from './denunciante/DenuncianteForm';
 import InformacoesLegais from './informacoesLegais/FormInformacoesLegais';
+import Descricao from './descricao/FormDescricao'
 import './denuncia.css';
 
 export default class NovaDenunciaForm extends Component {
@@ -56,6 +57,8 @@ export default class NovaDenunciaForm extends Component {
         <InformacoesLegais />
 
         <NovaTestemunhaForm handleChange={this.handleChange} />
+
+        <Descricao />
 
         <br />
         <button className="btn waves-effect waves-light" type="submit" name="action">

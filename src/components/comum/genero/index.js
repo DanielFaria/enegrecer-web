@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Combobox from '../combobox';
 
-const genero = ({ id, divClasse, onChange }) => (
+const genero = ({ id, divClasse }) => (
   <Combobox
     id={id}
     label={'Gênero'}
@@ -14,14 +14,12 @@ const genero = ({ id, divClasse, onChange }) => (
 
 genero.propTypes = {
   id: PropTypes.string,
-  divClasse: PropTypes.string,
-  onChange: PropTypes.func
+  divClasse: PropTypes.string
 };
 
 genero.defaultProps = {
   id: '',
-  divClasse: '',
-  onChange: () => { }
+  divClasse: ''
 };
 
 export default genero;
