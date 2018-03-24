@@ -4,8 +4,8 @@ import NovaVitimaForm from './vitima/NovaVitimaForm';
 import NovaTestemunhaForm from './testemunha/NovaTestemunhaForm';
 import DetalhamentoDenuncia from './DetalhamentoDenuncia';
 import Denunciante from './denunciante/DenuncianteForm';
-import InformacoesLegais from './informacoesLegais/FormInformacoesLegais';
-import Descricao from './descricao/FormDescricao'
+import Descricao  from './descricao/FormDescricao';
+import AgressorForm   from  './agressor/AgressorForm';
 import './denuncia.css';
 
 export default class NovaDenunciaForm extends Component {
@@ -49,15 +49,14 @@ export default class NovaDenunciaForm extends Component {
         id="form-nova-denuncia"
         onSubmit={event => this.handleSubmit(event)}
       >
-        <Denunciante handleChange={this.handleChange} />
+        <Denunciante  handleChange={this.handleChange} />
         <DetalhamentoDenuncia handleChange={this.handleChange} />
 
         <NovaVitimaForm handleChange={this.handleChange} />
 
-        <InformacoesLegais />
-
         <NovaTestemunhaForm handleChange={this.handleChange} />
 
+        <AgressorForm />
         <Descricao />
 
         <br />
