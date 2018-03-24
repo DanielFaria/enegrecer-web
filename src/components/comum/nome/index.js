@@ -14,12 +14,12 @@ const nome = ({ id, onChange }) => (<CampoTexto
 
 nome.propTypes = {
   id: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 nome.defaultProps = {
   id: '',
-  onChange: () => {}
+  onChange: () => {},
 };
 
 export default nome;
