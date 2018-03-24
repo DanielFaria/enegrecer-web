@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DenuncianteForm deve seguir a estrutura definida  1`] = `
+<FormInformacoesLegais>
+  <div>
+    <br />
+    <p>
+      Informaçoes Legais
+    </p>
+    <br />
+    <h4>
+       Você conseguiu realizar um boletim de ocorrência? Ou tem informações caso você não seja a vítima? 
+    </h4>
+    <p>
+      Essas informações são importantes para conseguirmos identificar a quantidade de vítimas que conseguem reportar esse crime. 
+    </p>
+    <div
+      className="row"
+    >
+      <campoTexto
+        divClasse="input-field col s6"
+        id="numero-boletim"
+        inputClasse=""
+        label="Número do Boletim de ocorrência"
+        maxLen={40}
+        onChange={[Function]}
+        placeholder=""
+        type="text"
+      >
+        <div
+          className="input-field col s6"
+        >
+          <input
+            className=""
+            id="numero-boletim"
+            maxLength={40}
+            onChange={[Function]}
+            type="text"
+          />
+          <label
+            className="active"
+            htmlFor="numero-boletim"
+          >
+            Número do Boletim de ocorrência
+          </label>
+        </div>
+      </campoTexto>
+      <campoTexto
+        divClasse="input-field col s6"
+        id="categoria-crime-boletim"
+        inputClasse=""
+        label="Categoria do crime no BO"
+        maxLen={40}
+        onChange={[Function]}
+        placeholder=""
+        type="text"
+      >
+        <div
+          className="input-field col s6"
+        >
+          <input
+            className=""
+            id="categoria-crime-boletim"
+            maxLength={40}
+            onChange={[Function]}
+            type="text"
+          />
+          <label
+            className="active"
+            htmlFor="categoria-crime-boletim"
+          >
+            Categoria do crime no BO
+          </label>
+        </div>
+      </campoTexto>
+    </div>
+    <div
+      className="row"
+    >
+      <campoTexto
+        divClasse="input-field col s6"
+        id="numero-processo"
+        inputClasse=""
+        label="Número do Processo"
+        maxLen={40}
+        onChange={[Function]}
+        placeholder=""
+        type="text"
+      >
+        <div
+          className="input-field col s6"
+        >
+          <input
+            className=""
+            id="numero-processo"
+            maxLength={40}
+            onChange={[Function]}
+            type="text"
+          />
+          <label
+            className="active"
+            htmlFor="numero-processo"
+          >
+            Número do Processo
+          </label>
+        </div>
+      </campoTexto>
+      <campoTexto
+        divClasse="input-field col s6"
+        id="orgao"
+        inputClasse=""
+        label="Órgão"
+        maxLen={40}
+        onChange={[Function]}
+        placeholder=""
+        type="text"
+      >
+        <div
+          className="input-field col s6"
+        >
+          <input
+            className=""
+            id="orgao"
+            maxLength={40}
+            onChange={[Function]}
+            type="text"
+          />
+          <label
+            className="active"
+            htmlFor="orgao"
+          >
+            Órgão
+          </label>
+        </div>
+      </campoTexto>
+    </div>
+  </div>
+</FormInformacoesLegais>
+`;
